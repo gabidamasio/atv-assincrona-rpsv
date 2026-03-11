@@ -1,0 +1,39 @@
+# =========================
+# Interface esperada pelo sistema
+# =========================
+class Target:
+
+    def request(self):
+        return "Requisição padrão do sistema."
+
+
+# =========================
+# Classe existente (incompatível)
+# =========================
+class Adaptee:
+
+    def specific_request(self):
+        return "Resposta da classe antiga."
+
+
+# =========================
+# Adapter
+# =========================
+class Adapter(Target):
+
+    def __init__(self, adaptee: Adaptee):
+        self.adaptee = adaptee
+
+    def request(self):
+        return self.adaptee.specific_request()
+
+
+# =========================
+# Código cliente
+# =========================
+if __name__ == "__main__":
+
+    adaptee = Adaptee()
+    adapter = Adapter(adaptee)
+
+    print(adapter.request())

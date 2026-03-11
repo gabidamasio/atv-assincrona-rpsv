@@ -1,0 +1,49 @@
+# =========================
+# Subsistemas
+# =========================
+class DVDPlayer:
+
+    def on(self):
+        print("DVD Player ligado")
+
+    def play(self):
+        print("Reproduzindo filme")
+
+
+class Projector:
+
+    def on(self):
+        print("Projetor ligado")
+
+
+class SoundSystem:
+
+    def on(self):
+        print("Sistema de som ligado")
+
+
+# =========================
+# Facade
+# =========================
+class HomeTheaterFacade:
+
+    def __init__(self):
+        self.dvd = DVDPlayer()
+        self.projector = Projector()
+        self.sound = SoundSystem()
+
+    def watch_movie(self):
+        print("Iniciando sistema de cinema...")
+        self.projector.on()
+        self.sound.on()
+        self.dvd.on()
+        self.dvd.play()
+
+
+# =========================
+# Código cliente
+# =========================
+if __name__ == "__main__":
+
+    theater = HomeTheaterFacade()
+    theater.watch_movie()

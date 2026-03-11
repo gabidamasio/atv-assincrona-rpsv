@@ -1,0 +1,67 @@
+from abc import ABC, abstractmethod
+
+
+# =========================
+# Produto Abstrato
+# =========================
+class Notification(ABC):
+
+    @abstractmethod
+    def send(self, message: str) -> None:
+        pass
+
+
+# =========================
+# Produtos Concretos
+# =========================
+class EmailNotification(Notification):
+
+    def send(self, message: str) -> None:
+        print(f"Enviando EMAIL: {message}")
+
+
+class SMSNotification(Notification):
+
+    def send(self, message: str) -> None:
+        print(f"Enviando SMS: {message}")
+
+
+# =========================
+# Criador Abstrato
+# =========================
+class NotificationCreator(ABC):
+
+    @abstractmethod
+    def factory_method(self) -> Notification:
+        pass
+
+    def send_notification(self, message: str) -> None:
+        notification = self.factory_method()
+        notification.send(message)
+
+
+# =========================
+# Criadores Concretos
+# =========================
+class EmailCreator(NotificationCreator):
+
+    def factory_method(self) -> Notification:
+        return EmailNotification()
+
+
+class SMSCreator(NotificationCreator):
+
+    def factory_method(self) -> Notification:
+        return SMSNotification()
+
+
+# =========================
+# Código Cliente
+# =========================
+if __name__ == "__main__":
+
+    creator = EmailCreator()
+    creator.send_notification("Olá via Email!")
+
+    creator = SMSCreator()
+    creator.send_notification("Olá via SMS!")
